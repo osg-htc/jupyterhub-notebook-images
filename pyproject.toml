@@ -42,7 +42,7 @@ sqlite_cache = true
 [tool.poetry]
 name = "osg_jupyterhub_notebook_images"
 version = "0.0.1"
-description = "Docker images for OSG's JupyterHub instance"
+description = "Notebooks for JupyterHub"
 license = "Apache-2.0"
 authors = ["Brian Aydemir <baydemir@morgridge.org>"]
 repository = "https://github.com/brianaydemir/osg-jupyter-docker"
