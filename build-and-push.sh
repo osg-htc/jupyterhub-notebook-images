@@ -3,19 +3,20 @@
 
 set -eu
 
-repo="${1%/}"  # remove a trailing slash
+context="${1:-}"
+repo="$(basename -- "$context")"
 tag="${2:-}"
 push="${3:-}"
 project="${4:-hub.opensciencegrid.org/osg-jupyterhub}"
 
 name="$project/$repo:$tag"
 
-if [ ! -d "$repo" ] || [ -z "$tag" ]; then
+if [ ! -d "$context" ] || [ -z "$tag" ]; then
   printf '%s\n' "Usage: $0 <dir> <tag> [push-image?] [project]" 1>&2
   exit 1
 fi
 
-docker build --no-cache --pull -t "$repo:$tag" "$repo"
+docker build --no-cache --pull -t "$repo:$tag" "$context"
 
 if [ -n "$push" ]; then
   docker tag "$repo:$tag" "$name"
