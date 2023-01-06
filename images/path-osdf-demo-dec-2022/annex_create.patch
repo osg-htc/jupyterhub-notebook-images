@@ -1,0 +1,34 @@
+--- /usr/lib/python3/dist-packages/htcondor_cli/annex_create.py 2022-11-10 21:56:32.000000000 +0000
++++ /usr/lib/python3/dist-packages/htcondor_cli/annex_create.py 2023-01-05 22:07:30.048890787 +0000
+@@ -639,7 +639,6 @@
+     args = [
+         'condor_token_fetch',
+         '-lifetime', str(token_lifetime),
+-        '-token', token_name,
+         '-key', annex_token_key_name,
+         '-authz', 'READ',
+         '-authz', 'ADVERTISE_STARTD',
+@@ -659,10 +658,10 @@
+         out, err = proc.communicate(timeout=TOKEN_FETCH_TIMEOUT)
+ 
+         if proc.returncode == 0:
+-            sec_token_directory = htcondor.param.get("SEC_TOKEN_DIRECTORY")
+-            if sec_token_directory == "":
+-                sec_token_directory = "~/.condor/tokens.d"
+-            return os.path.expanduser(f"{sec_token_directory}/{token_name}")
++            token_file = os.path.expanduser(f"~/.hpc-annex/{token_name}")
++            with open(token_file, "w") as tf:
++                print(out, file=tf)
++            return token_file
+         else:
+             logger.error(f"Failed to create annex token, aborting.")
+             logger.warning(f"{out.strip()}")
+@@ -839,7 +838,7 @@
+             resources = f"{resources}and "
+     if mem_mb is not None:
+         resources = f"{resources}{mem_mb}MB of RAM "
+-    if resources is "":
++    if resources == "":
+         resources = f"{nodes} nodes "
+     resources = f"{resources}for {lifetime/(60*60):.2f} hours"
+

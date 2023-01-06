@@ -1,4 +1,4 @@
-FROM hub.opensciencegrid.org/osg-jupyterhub/htc-minimal-notebook:1.3.0
+FROM hub.opensciencegrid.org/osg-jupyterhub/htc-minimal-notebook:1.4.0
 
 USER root
 
@@ -7,7 +7,7 @@ USER root
 RUN sed -i -e 's/current/10.x-update/' /etc/apt/sources.list.d/htcondor.list \
     && curl https://research.cs.wisc.edu/htcondor/repo/keys/HTCondor-10.x-Key | apt-key add -  \
     && apt-get update \
-    && apt-get upgrade -y htcondor \
+    && apt-get upgrade -y htcondor patch \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,5 +20,10 @@ RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_B
         /usr/lib/condor/libexec/annex/bridges2.sh
 RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/9.x/9.5.4/update/condor-9.5.4-20220207-x86_64_CentOS7-stripped.tar.gz|' \
         /usr/lib/condor/libexec/annex/stampede2.sh
+
+## Patch the annex creation script.
+
+COPY annex_create.patch /tmp/annex_create.patch
+RUN cd / && patch -p0 < /tmp/annex_create.patch
 
 USER $NB_UID:$NB_GID
