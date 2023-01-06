@@ -9,7 +9,10 @@ RUN sed -i -e 's/current/10.x-update/' /etc/apt/sources.list.d/htcondor.list \
     && apt-get update \
     && apt-get upgrade -y htcondor patch \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    #
+    && python3 -m pip install -U --no-cache-dir \
+          htcondor==$(condor_version | head -n1 | cut -d " " -f 2)
 
 ## Fix URLs in the HPC Annex scripts.
 
