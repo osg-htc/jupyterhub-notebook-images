@@ -30,3 +30,12 @@ COPY annex_create.patch /tmp/annex_create.patch
 RUN cd / && patch -p0 < /tmp/annex_create.patch
 
 USER $NB_UID:$NB_GID
+
+## Upgrade JupyterLab.
+
+RUN conda install -y jupyterlab==3.4.8
+
+## Install a Juypter extension for browser notifications.
+## Reference: https://parulpandey.com/2021/02/06/enabling-notifications-in-your-jupyter-notebooks-for-cell-completion/
+
+RUN python3 -m pip install git+https://github.com/cphyc/jupyter-notify.git
