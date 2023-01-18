@@ -1,11 +1,11 @@
-FROM hub.opensciencegrid.org/osg-jupyterhub/htc-minimal-notebook:1.4.0
+FROM hub.opensciencegrid.org/osg-jupyterhub/htc-minimal-notebook:1.4.2
 
 USER root
 
 ## Upgrade HTCondor to 10.x.y.
 
 RUN sed -i -e 's/current/10.x-update/' /etc/apt/sources.list.d/htcondor.list \
-    && curl https://research.cs.wisc.edu/htcondor/repo/keys/HTCondor-10.x-Key | apt-key add -  \
+    && curl https://research.cs.wisc.edu/htcondor/repo/keys/HTCondor-10.x-Key | apt-key add - \
     && apt-get update \
     && apt-get upgrade -y htcondor patch \
     && apt-get clean \
