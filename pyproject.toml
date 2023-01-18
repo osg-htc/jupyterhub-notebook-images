@@ -45,7 +45,7 @@ version = "0.0.1"
 description = "Notebooks for JupyterHub"
 license = "Apache-2.0"
 authors = ["Brian Aydemir <baydemir@morgridge.org>"]
-repository = "https://github.com/brianaydemir/osg-jupyter-docker"
+repository = "https://github.com/osg-htc/jupyterhub-notebook-images"
 packages = []
 
 
