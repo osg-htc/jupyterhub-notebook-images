@@ -8,11 +8,12 @@ repo="$(basename -- "$context")"
 tag="${2:-}"
 push="${3:-}"
 project="${4:-hub.opensciencegrid.org/osg-jupyterhub}"
+repo="${5:-$repo}"
 
 name="$project/$repo:$tag"
 
 if [ ! -d "$context" ] || [ -z "$tag" ]; then
-  printf '%s\n' "Usage: $0 <dir> <tag> [push-image?] [project]" 1>&2
+  printf '%s\n' "Usage: $0 <dir> <tag> [push-image?] [project] [repo]" 1>&2
   exit 1
 fi
 
