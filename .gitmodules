@@ -1,0 +1,3 @@
+[submodule "images/sciauth-pearc-23-image"]
+	path = images/sciauth-pearc-23-image
+	url = git@github.com:SciAuth/pearc-23-image.git
