@@ -16,12 +16,12 @@ RUN sed -i -e 's/current/10.x-update/' /etc/apt/sources.list.d/htcondor.list \
 
 ## Fix URLs in the HPC Annex scripts.
 
-RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/10.x/10.2.0/rc/condor-10.2.0-x86_64_AlmaLinux8-stripped.tar.gz|' \
+RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/10.x/10.2.0/release/condor-10.2.0-x86_64_AlmaLinux8-stripped.tar.gz|' \
         /usr/lib/condor/libexec/annex/anvil.sh \
         /usr/lib/condor/libexec/annex/expanse.sh
-RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/10.x/10.2.0/rc/condor-10.2.0-x86_64_CentOS8-stripped.tar.gz|' \
+RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/10.x/10.2.0/release/condor-10.2.0-x86_64_CentOS8-stripped.tar.gz|' \
         /usr/lib/condor/libexec/annex/bridges2.sh
-RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/10.x/10.2.0/rc/condor-10.2.0-x86_64_CentOS7-stripped.tar.gz|' \
+RUN sed -i -e 's|^WELL_KNOWN_LOCATION_FOR_BINARIES=.*$|WELL_KNOWN_LOCATION_FOR_BINARIES=https://research.cs.wisc.edu/htcondor/tarball/10.x/10.2.0/release/condor-10.2.0-x86_64_CentOS7-stripped.tar.gz|' \
         /usr/lib/condor/libexec/annex/stampede2.sh
 
 ## Patch the annex creation script.
