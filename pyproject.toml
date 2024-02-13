@@ -7,12 +7,12 @@ requires = ["poetry-core>=1.0.0"]
 
 
 [tool.black]
-line-length = 80
-target-version = ["py38", "py39", "py310", "py311"]
+line-length = 96
+target-version = ["py39", "py310", "py311", "py312"]
 
 
 [tool.isort]
-line_length = 80
+line_length = 96
 profile = "black"
 
 
@@ -43,27 +43,27 @@ name = "osg_jupyterhub_notebook_images"
 version = "0.0.1"
 description = "Notebooks for JupyterHub"
 license = "Apache-2.0"
-authors = ["Brian Aydemir <baydemir@morgridge.org>"]
+authors = [
+    "Brian Aydemir <baydemir@morgridge.org>",
+]
 repository = "https://github.com/osg-htc/jupyterhub-notebook-images"
 packages = []
 
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.12"
 
 
 [tool.poetry.group.dev.dependencies]
 bandit = "~1.7"
-black = "~23.3"
+black = "~24.2"
 docutils = "~0.20"
-isort = "~5.12"
-mypy = "~1.2"
-pre-commit = "~3.3"
-pylint = "~2.17"
-"ruamel.yaml.cmd" = "~0.6"
-safety = "~2.3"
+isort = "~5.13"
+mypy = "~1.8"
+pre-commit = "~3.6"
+pylint = "~3.0"
 
 
 [tool.pylint.messages-control]
-max-line-length = 80
+max-line-length = 96
 disable = "invalid-name,missing-class-docstring,missing-function-docstring"
