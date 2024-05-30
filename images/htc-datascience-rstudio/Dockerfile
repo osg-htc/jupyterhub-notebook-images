@@ -1,4 +1,4 @@
-FROM hub.opensciencegrid.org/osg-jupyterhub/htc-datascience-notebook:3.0.1
+FROM hub.opensciencegrid.org/osg-jupyterhub/htc-datascience-notebook:3.1.0
 
 USER root
 
