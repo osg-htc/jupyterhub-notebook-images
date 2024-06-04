@@ -1,22 +1,34 @@
 FROM hub.opensciencegrid.org/osg-jupyterhub/htc-datascience-notebook:3.1.0
 
-USER root
-
 # Install RStudio
 #     (https://posit.co/download/rstudio-server/)
 # and make it easy to access
 #     (https://github.com/jupyterhub/jupyter-rsession-proxy).
 
+ARG RSTUDIO_DEB=rstudio-server-2024.04.1-748-amd64.deb
+
+USER root
+
 RUN true \
+    #
+    # Install only the RStudio package.
+    # R itself is already installed into the Conda environment.
+    #
     && apt-get update -y \
-    && apt-get install -y r-base \
-    && wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.12.1-402-amd64.deb \
-    && apt-get install -y ./rstudio-server-2023.12.1-402-amd64.deb \
-    && rm -f rstudio-server-2023.12.1-402-amd64.deb \
+    && wget https://download2.rstudio.org/server/jammy/amd64/${RSTUDIO_DEB} \
+    && apt-get install -y ./${RSTUDIO_DEB} \
+    && rm -rf ${RSTUDIO_DEB} \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
+    #
+    # Configure 'rserver'.
+    # Ensure that the Conda environment's shared libraries are preferred.
+    #
+    && mkdir -p /etc/rstudio \
+    && printf 'rsession-which-r=%s\n' "$(command -v R)" >> /etc/rstudio/rserver.conf \
+    && printf 'rsession-ld-library-path=%s\n' "/opt/conda/lib/R/lib:/opt/conda/lib" >> /etc/rstudio/rserver.conf \
     && true
 
 USER $NB_UID:$NB_GID
 
-RUN pip install --no-cache-dir jupyter-rsession-proxy
+RUN python3 -m pip install --no-cache-dir jupyter-rsession-proxy
